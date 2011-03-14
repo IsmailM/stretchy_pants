@@ -1,0 +1,19 @@
+%h1 Profile: #{@user.name}
+- if @errors
+  #form_errors
+    %h2 You had the following errors
+    - @errors.full_messages.each do |f|
+      %p= f
+#user
+  %dl
+    %dt Email:
+    %dd= @user.email
+
+  %h2 Change password
+  %form{:action => '/profile', :method => 'post'}
+    = haml :_input, :locals => {:name => 'old_password', :label => 'Current password', :type => 'password'}
+    = haml :_input, :locals => {:name => 'password', :label => 'New password', :type => 'password'}
+    = haml :_input, :locals => {:name => 'password_confirmation', :label => 'Confirm your new password', :type => 'password'}
+    %p
+      %input{:type => 'submit', :value => 'Update password'}
+

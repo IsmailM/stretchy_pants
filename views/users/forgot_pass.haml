@@ -1,0 +1,8 @@
+#login
+  %h1 Forgot your password?
+  %p Enter your email below and a new password will be mailed to you
+
+  %form{:action => '/forgot_pass', :method => 'post'}
+    = haml :_input, :locals => {:name => 'email', :label => 'Your email', :type => 'text'}
+    %p
+      %input{:type => 'submit', :value => 'Get new password'}

@@ -1,0 +1,122 @@
+.header {
+  padding: 10px;
+  @include clearfix
+}
+
+#login_bar {
+  padding: 5px 15px;
+  background: #eee;
+  @include border-radius(6px);
+  float: right;
+  li {
+    display: inline;
+    list-style-type: none;
+    padding: 0 5px;
+    border-right: #ccc 1px solid;
+  }
+  li:last-child {
+    border-right: 0;
+  }
+}
+
+.body {
+  h1 {
+    font-size: 18px;
+  }
+}
+
+.footer {
+  padding: 25px 5px;
+}
+
+#flash {
+  margin: 15px 0;
+  padding: 10px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+  @include border-radius(10px);
+}
+
+.success {
+  background-color: green;
+}
+
+.notice {
+  background-color: yellow;
+}
+
+.error {
+  background-color: #c30;
+}
+
+#form_errors {
+  margin: 10px;
+  border: #c30 1px solid;
+
+  h2 {
+    background: #c30;
+    padding: 5px;
+    color: #fff
+  }
+
+  p {
+    padding: 5px;
+    margin: 5px 0;
+    color: darken(#c30, 25%);
+  }
+}
+
+
+form {
+  div.error {
+    label {
+      color: #c30;
+    }
+    input.error {
+      background-color: lighten(#c30, 50%);
+      color: #c30;
+    }
+  }
+}
+
+table.users {
+  tr {
+    th {
+      padding: 5px;
+      border-bottom: #ccc 1px solid;
+      text-align: left;
+    }
+
+    td {
+      padding: 5px;
+    }
+  }
+
+  tr:nth-child(odd) {
+    background-color: #eee;
+  }
+
+  tr:first-child {
+    background-color: #fff;
+  }
+}
+
+#user {
+  form {
+    margin: 10px 0;
+  }
+
+  div.input {
+    margin: 15px 0;
+  }
+
+  label {
+    font-weight: bold;
+  }
+
+  input[type="text"],
+  input[type="password"] {
+    display: block;
+  }
+}

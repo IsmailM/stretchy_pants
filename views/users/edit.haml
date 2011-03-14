@@ -1,0 +1,16 @@
+%h1 Edit #{@form[:name]}
+- if @errors
+  #form_errors
+    %h2 You had the following errors
+    - @errors.full_messages.each do |f|
+      %p= f
+#user
+  %form{:action => '/users/edit', :method => 'post'}
+    = haml :_input, :locals => {:name => '_id', :label => nil, :type => 'hidden'}
+    = haml :_input, :locals => {:name => 'name', :label => 'Your name', :type => 'text'}
+    = haml :_input, :locals => {:name => 'email', :label => 'Your email', :type => 'text'}
+    = haml :_input, :locals => {:name => 'password', :label => 'Change your password', :type => 'password'}
+    = haml :_input, :locals => {:name => 'password_confirmation', :label => 'Confirm your new password', :type => 'password'}
+    = haml :_input, :locals => {:name => 'admin', :label => 'Administrator?', :type => 'checkbox'}
+    %p
+      %input{:type => 'submit', :value => 'Update User Record'}

@@ -1,0 +1,13 @@
+%h1 Users
+%table.users
+  %tr
+    %th Name
+    %th Email
+    %th Admin
+  - @users.each do |t|
+    %tr
+      %td= t.name
+      %td= t.email
+      %td
+        %a{:href => "/users/destroy/#{t.id}"} Destroy
+        %a{:href => "/users/edit/#{t.id}"} Edit

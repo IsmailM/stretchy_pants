@@ -1,0 +1,19 @@
+- class_name = ""
+-if @superuser
+  - class_name = "admin"
+
+- if env['warden'].user
+  %ul{:id => "login_bar", :class => class_name}
+    %li Welcome back #{env['warden'].user.name}
+    - if env['warden'].user.admin
+      %li
+        %a{:href => '/users'} manage users
+    %li
+      %a{:href => '/profile'} profile
+    %li
+      %a{:href => '/logout'} logout
+- else
+  %ul{:id => "login_bar"}
+    %li
+      %a{:href => '/login'} login to your account
+

@@ -1,0 +1,17 @@
+#login
+  %h1 Login
+  - if @errors
+    #form_errors
+      %h2 You had the following errors
+      - @errors.full_messages.each do |f|
+        %p= f
+
+  %form{:action => '/login', :method => 'post'}
+    = haml :_input, :locals => {:name => 'email', :label => 'Your email', :type => 'text'}
+    = haml :_input, :locals => {:name => 'password', :label => 'Your password', :type => 'password'}
+    %p
+      %input{:type => 'submit', :value => 'Login!'}
+
+  %p
+    %a{:href => '/forgot_pass'} Forgot your password?
+

@@ -1,0 +1,19 @@
+- form_class(name, type)
+- case type
+- when 'hidden'
+  %input{:name => "user[#{name}]", :id=> name, :type => type, :value => @val, :class => @cls}
+- when 'checkbox'
+  %div{:class => 'input'}
+    - if label
+      %label{:for => name } #{label}
+    %input{:name => "user[#{name}]", :id=> '_'+name, :type => 'hidden', :value => '0', :class => @cls}
+    - if @val != true
+      %input{:name => "user[#{name}]", :id=> name, :type => type, :class => @cls}
+    - else
+      %input{:name => "user[#{name}]", :id=> name, :type => type, :checked => true, :class => @cls}
+- else
+  %div{:class => @cls}
+    - if label
+      %label{:for => name } #{label}
+    %input{:name => "user[#{name}]", :id=> name, :type => type, :value => @val, :class => @cls}
+
