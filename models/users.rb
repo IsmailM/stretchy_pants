@@ -11,6 +11,7 @@ class User
   field :email
   field :name
   field :password
+  field :nonce
   field :admin, :type => Boolean, :default => false
 
   before_create :hash_password
@@ -19,38 +20,34 @@ class User
   # BCrypt needs to do some ops on the hash to compare
   # https://github.com/codahale/bcrypt-ruby/blob/master/lib/bcrypt.rb#L149
   def self.authenticate (email, password)
-    if user = first(:conditions => {:email => email})
-      db_pass = Password.new(user.password)
-      if db_pass == password
-        return user
-      end
+    user = first(:conditions => {:email => email})
+    if user && user.password == BCrypt::Engine.hash_secret(ENV['PASSWORD_SALT'] + password, user.nonce)
+      user
+    else
       nil
     end
-    nil
   end
 
   protected
 
-
   def password_changed
     if self.password.nil?
-      return false
+      false
     end
     puts self.password
-    return true
+    true
   end
 
   def check_and_hash_password
-    if self.password_confirmation
-      if self.password_confirmation == self.password
-        self.password = Password.create(self.password)
-      end
+    if self.password_confirmation && self.password_confirmation == self.password
+      hash_password
     end
   end
 
   # Use BCrypt to apply hella hashing to passwords before creating
   def hash_password
-    self.password = Password.create(self.password)
+    self.nonce = BCrypt::Engine.generate_salt
+    self.password = BCrypt::Engine.hash_secret(ENV['PASSWORD_SALT'] + self.password, self.nonce)
   end
 
 end

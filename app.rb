@@ -14,6 +14,9 @@ require "mongo"
 require "mongoid"
 require "uri"
 
+# Load helpers
+require_relative 'helpers/init'
+
 # This file primarly handles top level configuration and gem loading
 # along with filters and such   
 #
@@ -22,6 +25,7 @@ require "uri"
 #
 class MyApp < Sinatra::Base
   register Sinatra::ConfigFile
+  helpers Sinatra::FormHelpers
 
   # Load core configuration file
   config_file 'config/app_config.yml'
@@ -87,7 +91,5 @@ class MyApp < Sinatra::Base
   # start the server if ruby file executed directly
   run! if app_file == $0
 end
-
 require_relative 'models/init'
-require_relative 'helpers/init'
 require_relative 'routes/init'
