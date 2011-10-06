@@ -15,4 +15,7 @@ configure :production do
   Mongoid.database = Mongo::Connection.new(uri.host, uri.port).db(uri.path.gsub(/^\//, ''))
   Mongoid.database.authenticate(uri.user, uri.password)
 end
-require_relative 'users'
+
+# Load all of our models
+model_root = File.dirname(__FILE__)
+Dir["#{model_root}/*.rb"].each {|file| require file }
