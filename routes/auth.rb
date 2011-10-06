@@ -1,4 +1,4 @@
-class MyApp < Sinatra::Application
+class MyApp < Sinatra::Base
 
   use Warden::Manager do |manager|
     manager.default_strategies :password

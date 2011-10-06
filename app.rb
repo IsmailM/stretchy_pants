@@ -2,7 +2,8 @@
 require "bundler"
 Bundler.setup
 require "compass"
-require "sinatra"
+require "sinatra/base"
+require "sinatra/config_file"
 require "warden"
 require "haml"
 require "rack-flash"
@@ -19,22 +20,15 @@ require "uri"
 # Overall project structure inspired by spacemonkey here:
 # http://stackoverflow.com/questions/5015471/using-sinatra-for-larger-projects-via-multiple-files
 #
-class MyApp < Sinatra::Application
+class MyApp < Sinatra::Base
+  register Sinatra::ConfigFile
+
+  # Load core configuration file
+  config_file 'config/app_config.yml'
 
   # Configuration
   use Rack::Session::Cookie, :secret  => 't3h_s3cr3t_is_in_th3_sauc3_', :expire_after => 86400
   use Rack::Flash, :accessorize => [:notice, :error, :success]
-
-  set :app_file, __FILE__
-  set :root, File.dirname(__FILE__)
-  set :views, "views"
-  set :public, "public"
-  set :app_name, 'Stretchy Pants'
-
-  # General settings for use in mail
-  set :mail_from, 'app@sinatra.org'
-  set :mail_subject, 'Updates to you user account'
-
 
   configure :development do
     Compass.add_project_configuration(File.join(Sinatra::Application.root, 'config', 'compass.config'))
@@ -90,6 +84,8 @@ class MyApp < Sinatra::Application
     check_superuser
   end
 
+  # start the server if ruby file executed directly
+  run! if app_file == $0
 end
 
 require_relative 'models/init'

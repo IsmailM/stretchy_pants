@@ -1,4 +1,4 @@
-class MyApp < Sinatra::Application
+class MyApp < Sinatra::Base
 
 	# get '/stylesheets/:name.css' do
 	#   content_type 'text/css', :charset => 'utf-8'

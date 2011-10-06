@@ -1,0 +1,7 @@
+app_file: __FILE__
+root: File.dirname(__FILE__)
+views: views
+public_folder: public
+app_name: Stretchy Pants
+mail_from: app@sinatra.org
+mail_subject: Updates to you user account
