@@ -19,6 +19,11 @@ class User
 
   # BCrypt needs to do some ops on the hash to compare
   # https://github.com/codahale/bcrypt-ruby/blob/master/lib/bcrypt.rb#L149
+  #
+  # Also, we store an additional password salt in the env.rb file so that
+  # even if an attacker pwns the DB, they still need to get into the file system
+  # to retrieve the additional salt.
+  #
   def self.authenticate (email, password)
     user = first(:conditions => {:email => email})
     if user && user.password == BCrypt::Engine.hash_secret(ENV['PASSWORD_SALT'] + password, user.nonce)
@@ -44,7 +49,8 @@ class User
     end
   end
 
-  # Use BCrypt to apply hella hashing to passwords before creating
+  # We store a nonce (salt) created by BCrypt in the DB. We also apply our own salt
+  # to make things harder for someone who cracks the DB.
   def hash_password
     self.nonce = BCrypt::Engine.generate_salt
     self.password = BCrypt::Engine.hash_secret(ENV['PASSWORD_SALT'] + self.password, self.nonce)
