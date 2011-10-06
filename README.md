@@ -1,4 +1,4 @@
-# Stretchy Pants #
+# Sinatra Stretchy Pants #
 
 **An off-the-shelf, ready-to-go project template for Ruby web-apps with user
 management/authentication built-in. Uses the following projects:**
@@ -26,3 +26,7 @@ The application will look for a file called `env.rb` where we stash information 
 	ENV['PASSWORD_SALT'] = 'sha256_hash_of_something' # IMPORTANT
 
 If you deploy to Heroku you can set these using the Heroku Gem: [http://devcenter.heroku.com/articles/config-vars](http://devcenter.heroku.com/articles/config-vars)
+
+### Todo's ###
+
+* Setup a procfile and such for use on Celadon Cedar stack on Heroku
